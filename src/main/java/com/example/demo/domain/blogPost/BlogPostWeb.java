@@ -28,7 +28,7 @@ public class BlogPostWeb {
     @Autowired
     private BlogPostService service;
 
-    @GetMapping
+    @GetMapping(value = "/")
     @Operation(summary = "Fetches all Blog Posts", description = "When successful it fetches all posts and returns a JSON-Code with the status code 200.")
     public ResponseEntity<List<BlogPost>> allBlogPosts () {
         return ResponseEntity.ok().body(service.getAllBlogPosts());
