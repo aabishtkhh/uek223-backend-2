@@ -45,5 +45,5 @@ ON CONFLICT DO NOTHING;
 
 --DATA - Zwischentabelle
 INSERT INTO blog_post_category (blogpostid, categoryid)
-VALUES ('efe33f34-4d76-11ee-be56-0242ac120002', 'efe34204-4d76-11ee-be56-0242ac120002' )
+VALUES ('efe33f34-4d76-11ee-be56-0242ac120002', 'efe34204-4d76-11ee-be56-0242ac120002')
 ON CONFLICT DO NOTHING;
