@@ -47,7 +47,3 @@ ON CONFLICT DO NOTHING;
 INSERT INTO blog_post_category (blogpostid, categoryid)
 VALUES ('efe33f34-4d76-11ee-be56-0242ac120002', 'efe34204-4d76-11ee-be56-0242ac120002' )
 ON CONFLICT DO NOTHING;
-
-INSERT INTO blog_post_author (blogpostid, usersid)
-VALUES ('efe33f34-4d76-11ee-be56-0242ac120002', '0d8fa44c-54fd-4cd0-ace9-2a7da57992de' )
-ON CONFLICT DO NOTHING;

@@ -1,7 +1,7 @@
-package com.example.demo.domain.blogPost.dto;
+package com.example.demo.domain.blogPost;
 
-import com.example.demo.domain.blogPost.dto.BlogPost;
-import com.example.demo.domain.blogPost.dto.BlogPostRepository;
+import com.example.demo.domain.blogPost.BlogPost;
+import com.example.demo.domain.blogPost.BlogPostRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

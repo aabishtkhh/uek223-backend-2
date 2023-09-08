@@ -1,5 +1,7 @@
-package com.example.demo.domain.blogPost.dto;
+package com.example.demo.domain.blogPost;
 
+import com.example.demo.domain.blogPost.BlogPost;
+import com.example.demo.domain.blogPost.BlogPostService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
@@ -20,7 +22,7 @@ public class BlogPostWeb {
 
     /*
     - Exceptions
-    - Filter
+    - Filters
      */
 
     @Autowired
