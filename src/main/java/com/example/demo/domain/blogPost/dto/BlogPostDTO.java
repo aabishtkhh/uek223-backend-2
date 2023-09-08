@@ -1,32 +1,31 @@
 package com.example.demo.domain.blogPost.dto;
 
-import com.example.demo.core.generic.AbstractEntity;
+import com.example.demo.core.generic.AbstractDTO;
+import com.example.demo.domain.authority.dto.AuthorityDTO;
 import com.example.demo.domain.category.BlogPostCategory;
 import com.example.demo.domain.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 import java.util.UUID;
 
-
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-//or @Data
-@Entity
-@Table(name = "blog_posts")
-public class BlogPost extends AbstractEntity {
+@Accessors(chain = true)
+public class BlogPostDTO extends AbstractDTO {
 
-    //Zurzeit wird es ein Fehler in der Terminal ausgeben, da in dieser sowie in der Kategorie Tabelle keine Daten hinzugefügen wurden
+    /**
+     * In this special case, we don't have to hide anything, so the DTO and the main file is kept same
+     * */
 
     @Column(name = "title")
-    @Size(max = 270, message = "{validation.title.size.too_long}") //Validation
+    @Size(max = 270, message = "{validation.title.size.too_long}")
     private String title;
 
     @Column(name = "text")
@@ -35,7 +34,7 @@ public class BlogPost extends AbstractEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "blog_post_category",
-            joinColumns = @JoinColumn (name = "blogpostid", referencedColumnName = "id"),
+            joinColumns = @JoinColumn(name = "blogpostid", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn (name = "categoryid", referencedColumnName = "id")
     )
     private List<BlogPostCategory> categoryId;
@@ -44,10 +43,11 @@ public class BlogPost extends AbstractEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public BlogPost(UUID id, String title, String text, User user) {
+    public BlogPostDTO(UUID id, String title, String text, User user) {
         super(id);
         this.title = title;
         this.text = text;
         this.user = user;
     }
+
 }
