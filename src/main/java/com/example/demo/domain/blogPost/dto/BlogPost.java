@@ -41,7 +41,7 @@ public class BlogPost extends AbstractEntity {
     private List<BlogPostCategory> categoryId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public BlogPost(UUID id, String title, String text, User user) {
