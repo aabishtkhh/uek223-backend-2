@@ -1,5 +1,4 @@
-# README #
-
+# üK 223
 ## MU-Applikation Backend
 
 Hier erklären wir kurz wie Sie unseres Projekt aufsetzen kann. Im Projekt benutzen wir die Java JDK Version 18. Zudem benutzen wir einen Docker Container der ein PostgreSQL-Server besitzt. Der Docker lauft auf dem Port 5432. Der unterstehende Command erstellt einen passenden Docker für dieses Projekt.
