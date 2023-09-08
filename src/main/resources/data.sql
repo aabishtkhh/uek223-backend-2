@@ -15,13 +15,20 @@ ON CONFLICT DO NOTHING;
 INSERT INTO authority(id, name)
 VALUES ('2ebf301e-6c61-4076-98e3-2a38b31daf86', 'DEFAULT'),
 ('76d2cbf6-5845-470e-ad5f-2edb9e09a868', 'USER_MODIFY'),
-('21c942db-a275-43f8-bdd6-d048c21bf5ab', 'USER_DELETE')
+('21c942db-a275-43f8-bdd6-d048c21bf5ab', 'USER_DELETE'),
+('ac71de1a-4e3c-11ee-be56-0242ac120002', 'USER_CREATE'),
+('b0c5e828-4e3f-11ee-be56-0242ac120002', 'USER_READ'),
+('3debf3a6-4e3f-11ee-be56-0242ac120002', 'BLOG_READ'),
+('4a48005e-4e3f-11ee-be56-0242ac120002', 'BLOG_MODIFY'),
+('52d4a54c-4e3f-11ee-be56-0242ac120002', 'BLOG_DELETE'),
+('60929ffe-4e3f-11ee-be56-0242ac120002', 'BLOG_CREATE')
 ON CONFLICT DO NOTHING;
 
 --assign roles to users
 insert into users_role (users_id, role_id)
 values ('ba804cb9-fa14-42a5-afaf-be488742fc54', 'd29e709c-0ff1-4f4c-a7ef-09f656c390f1'),
        ('0d8fa44c-54fd-4cd0-ace9-2a7da57992de', 'd29e709c-0ff1-4f4c-a7ef-09f656c390f1'),
+       ('0d8fa44c-54fd-4cd0-ace9-2a7da57992de', 'c6aee32d-8c35-4481-8b3e-a876a39b0c02'),
        ('ba804cb9-fa14-42a5-afaf-be488742fc54', 'ab505c92-7280-49fd-a7de-258e618df074'),
        ('ba804cb9-fa14-42a5-afaf-be488742fc54', 'c6aee32d-8c35-4481-8b3e-a876a39b0c02')
  ON CONFLICT DO NOTHING;
@@ -30,7 +37,17 @@ values ('ba804cb9-fa14-42a5-afaf-be488742fc54', 'd29e709c-0ff1-4f4c-a7ef-09f656c
 INSERT INTO role_authority(role_id, authority_id)
 VALUES ('d29e709c-0ff1-4f4c-a7ef-09f656c390f1', '2ebf301e-6c61-4076-98e3-2a38b31daf86'),
 ('ab505c92-7280-49fd-a7de-258e618df074', '76d2cbf6-5845-470e-ad5f-2edb9e09a868'),
-('c6aee32d-8c35-4481-8b3e-a876a39b0c02', '21c942db-a275-43f8-bdd6-d048c21bf5ab')
+('ab505c92-7280-49fd-a7de-258e618df074', '21c942db-a275-43f8-bdd6-d048c21bf5ab'),
+('ab505c92-7280-49fd-a7de-258e618df074', 'ac71de1a-4e3c-11ee-be56-0242ac120002'),
+('ab505c92-7280-49fd-a7de-258e618df074', 'b0c5e828-4e3f-11ee-be56-0242ac120002'),
+('ab505c92-7280-49fd-a7de-258e618df074', '3debf3a6-4e3f-11ee-be56-0242ac120002'),
+('ab505c92-7280-49fd-a7de-258e618df074', '4a48005e-4e3f-11ee-be56-0242ac120002'),
+('ab505c92-7280-49fd-a7de-258e618df074', '52d4a54c-4e3f-11ee-be56-0242ac120002'),
+('ab505c92-7280-49fd-a7de-258e618df074', '60929ffe-4e3f-11ee-be56-0242ac120002'),
+('c6aee32d-8c35-4481-8b3e-a876a39b0c02', '3debf3a6-4e3f-11ee-be56-0242ac120002'),
+('c6aee32d-8c35-4481-8b3e-a876a39b0c02', '4a48005e-4e3f-11ee-be56-0242ac120002'),
+('c6aee32d-8c35-4481-8b3e-a876a39b0c02', '52d4a54c-4e3f-11ee-be56-0242ac120002'),
+('c6aee32d-8c35-4481-8b3e-a876a39b0c02', '60929ffe-4e3f-11ee-be56-0242ac120002')
  ON CONFLICT DO NOTHING;
 
 --DATA - Blog Post

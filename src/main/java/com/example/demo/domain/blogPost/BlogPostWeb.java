@@ -40,21 +40,21 @@ public class BlogPostWeb {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('POST')")
+    @PreAuthorize("hasAuthority('BLOG_CREATE')")
     @Operation(summary = "Creates a Blog Post", description = "When successful it creates a blog post with the wished values and returns the JSON-Code of created blog post with the status code 200.")
     public ResponseEntity<BlogPost> createBlogPost (@Valid @RequestBody() BlogPost blogPost) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.postABlogPost(blogPost));
     }
 
     @PutMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('PUT')")
+    @PreAuthorize("hasAuthority('BLOG_MODIFY')")
     @Operation(summary = "Updates the wished Blog Post", description = "When successful it updates the blog post with the wished values and returns the JSON-Code of the updated blog post with the status code 200.")
     public ResponseEntity<BlogPost> updateBlogPost(@Valid @PathVariable("id")UUID id, @RequestBody BlogPost blogPost) {
         return ResponseEntity.status(200).body(service.putABlogPost(blogPost, id));
     }
 
     @DeleteMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('DELETE')")
+    @PreAuthorize("hasAuthority('BLOG_DELETE')")
     @Operation(summary = "Deletes the Blog Post", description = "When successful it deletes the blog post with the status code 200.")
     public void deleteABlogPost(@Valid @PathVariable("id") UUID id) {
         service.deleteABlogPost(id);
