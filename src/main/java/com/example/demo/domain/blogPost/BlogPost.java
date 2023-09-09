@@ -34,11 +34,11 @@ public class BlogPost extends AbstractEntity {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "blog_post_category",
+            name = "blog_post_categories",
             joinColumns = @JoinColumn (name = "blogpostid", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn (name = "categoryid", referencedColumnName = "id")
     )
-    private List<BlogPostCategory> categoryId;
+    private List<BlogPostCategory> categories;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")

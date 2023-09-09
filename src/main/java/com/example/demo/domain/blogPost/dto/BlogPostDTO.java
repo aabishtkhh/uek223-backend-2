@@ -37,7 +37,7 @@ public class BlogPostDTO extends AbstractDTO {
             joinColumns = @JoinColumn(name = "blogpostid", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn (name = "categoryid", referencedColumnName = "id")
     )
-    private List<BlogPostCategory> categoryId;
+    private List<BlogPostCategory> categories;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")

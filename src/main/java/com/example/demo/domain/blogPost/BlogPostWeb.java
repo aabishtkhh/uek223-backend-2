@@ -39,7 +39,7 @@ public class BlogPostWeb {
         return ResponseEntity.ok().body(service.getSingleBlogPost(id));
     }
 
-    @PostMapping
+    @PostMapping(value = "/")
     @PreAuthorize("hasAuthority('BLOG_CREATE')")
     @Operation(summary = "Creates a Blog Post", description = "When successful it creates a blog post with the wished values and returns the JSON-Code of created blog post with the status code 200.")
     public ResponseEntity<BlogPost> createBlogPost (@Valid @RequestBody() BlogPost blogPost) {

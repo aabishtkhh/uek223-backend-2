@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor@Table(name = "category")
+@AllArgsConstructor@Table(name = "categories")
 public class BlogPostCategory extends AbstractEntity {
 
     @Column(name = "name")

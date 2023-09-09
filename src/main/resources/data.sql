@@ -56,11 +56,11 @@ VALUES ('efe33f34-4d76-11ee-be56-0242ac120002', 'Frozen', 'tbd', '0d8fa44c-54fd-
 ON CONFLICT DO NOTHING;
 
 --DATA - Category
-INSERT INTO category (id, name)
+INSERT INTO categories (id, name)
 VALUES ('efe34204-4d76-11ee-be56-0242ac120002', 'Disney')
 ON CONFLICT DO NOTHING;
 
 --DATA - Zwischentabelle
-INSERT INTO blog_post_category (blogpostid, categoryid)
+INSERT INTO blog_post_categories (blogpostid, categoryid)
 VALUES ('efe33f34-4d76-11ee-be56-0242ac120002', 'efe34204-4d76-11ee-be56-0242ac120002')
 ON CONFLICT DO NOTHING;
