@@ -51,14 +51,14 @@ public class BlogPostWeb {
     }
 
     @PutMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('BLOG_MODIFY')")
+    @PreAuthorize("hasAuthority('BLOG_MODIFY') || (hasAuthority('BLOG_MODIFY_BY_ID') && @userPermissionEvaluator.isSameUser(authentication.principal.user, #id))")
     @Operation(summary = "Updates the wished Blog Post", description = "When successful it updates the blog post with the wished values and returns the JSON-Code of the updated blog post with the status code 200.")
     public ResponseEntity<BlogPostDTO> updateBlogPost(@Valid @PathVariable("id") UUID id, @RequestBody BlogPostDTO blogPost) {
         return ResponseEntity.status(200).body(mapper.toDTO(service.putABlogPost(mapper.fromDTO(blogPost), id)));
     }
 
     @DeleteMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('BLOG_DELETE')")
+    @PreAuthorize("hasAuthority('BLOG_DELETE') || (hasAuthority('BLOG_DELETE_BY_ID') && @userPermissionEvaluator.isSameUser(authentication.principal.user, #id))")
     @Operation(summary = "Deletes the Blog Post", description = "When successful it deletes the blog post with the status code 200.")
     public void deleteABlogPost(@Valid @PathVariable("id") UUID id) {
         service.deleteABlogPost(id);
