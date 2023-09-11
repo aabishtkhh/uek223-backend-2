@@ -1,8 +1,7 @@
 package com.example.demo.domain.blogPost.dto;
 
 import com.example.demo.core.generic.AbstractDTO;
-import com.example.demo.domain.authority.dto.AuthorityDTO;
-import com.example.demo.domain.category.BlogPostCategory;
+import com.example.demo.domain.category.Category;
 import com.example.demo.domain.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -37,7 +36,7 @@ public class BlogPostDTO extends AbstractDTO {
             joinColumns = @JoinColumn(name = "blogpostid", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn (name = "categoryid", referencedColumnName = "id")
     )
-    private List<BlogPostCategory> categories;
+    private List<Category> categories;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
