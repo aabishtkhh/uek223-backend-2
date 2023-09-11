@@ -43,13 +43,8 @@ public class WebSecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http.authorizeHttpRequests(
         requests -> requests.requestMatchers(HttpMethod.POST, "/user/login", "/user/register").permitAll()
-<<<<<<< HEAD
-                .requestMatchers(HttpMethod.GET, "/v3/api-docs","/v3/api-docs/swagger-config","/swagger-ui/*","/myapi/*/*","/myapi/*", "/myapi/swagger-ui.html", "/blogs/").permitAll()
-                .anyRequest().authenticated())
-=======
                             .requestMatchers(HttpMethod.GET, "/v3/api-docs","/v3/api-docs/swagger-config","/swagger-ui/*","/myapi/*/*","/myapi/*", "/myapi/swagger-ui.html", "/blogs/*").permitAll()
                             .anyRequest().authenticated())
->>>>>>> 45c5701473aa62812b1c589a69128356ce0cf47c
                .addFilterAfter(new JWTAuthenticationFilter(new AntPathRequestMatcher("/user/login", "POST"),
                    authenticationManager(), jwtProperties), UsernamePasswordAuthenticationFilter.class)
                .addFilterAfter(new JWTAuthorizationFilter(userService, jwtProperties),
