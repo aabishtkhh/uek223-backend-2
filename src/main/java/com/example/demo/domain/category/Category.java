@@ -6,18 +6,17 @@ import lombok.*;
 
 import java.util.UUID;
 
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor@Table(name = "categories")
-public class BlogPostCategory extends AbstractEntity {
+public class Category extends AbstractEntity {
 
     @Column(name = "name")
     private String name;
 
-    public BlogPostCategory(UUID id, String name){
+    public Category(UUID id, String name){
         super(id);
         this.name = name;
     }
