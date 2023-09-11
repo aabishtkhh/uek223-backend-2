@@ -2,6 +2,7 @@ package com.example.demo.core.exception;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import org.springframework.security.access.AccessDeniedException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -94,6 +95,16 @@ public class CustomGlobalExceptionHandler {
     return new ResponseError().setTimeStamp(LocalDate.now())
                               .setErrors(errors)
                               .build();
+  }
+
+  @ExceptionHandler({AccessDeniedException.class})
+  @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+  public ResponseError handleAccessDeniedException(Throwable e) {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("accessDeniedException", e.getMessage());
+    return new ResponseError().setTimeStamp(LocalDate.now())
+            .setErrors(errors)
+            .build();
   }
 
   @ExceptionHandler({RuntimeException.class})

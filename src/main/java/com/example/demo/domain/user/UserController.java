@@ -35,12 +35,14 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
+  @PreAuthorize("hasAuthority('USER_READ') || (hasAuthority('USER_READ_BY_ID') && @userPermissionEvaluator.isSameUser(authentication.principal.user, #id))")
   public ResponseEntity<UserDTO> retrieveById(@PathVariable UUID id) {
     User user = userService.findById(id);
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }
 
   @GetMapping({"", "/"})
+  @PreAuthorize("hasAuthority('USER_READ')")
   public ResponseEntity<List<UserDTO>> retrieveAll() {
     List<User> users = userService.findAll();
     return new ResponseEntity<>(userMapper.toDTOs(users), HttpStatus.OK);
@@ -57,15 +59,14 @@ public class UserController {
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.CREATED);
   }
   @PutMapping("/{id}")
-  @PreAuthorize(
-      "hasAuthority('USER_MODIFY') && @userPermissionEvaluator.isUserAboveAge(authentication.principal.user,18)")
+  @PreAuthorize("hasAuthority('USER_MODIFY') || (hasAuthority('USER_MODIFY_SELF') && @userPermissionEvaluator.isSameUser(authentication.principal.user, #id))")
   public ResponseEntity<UserDTO> updateById(@PathVariable UUID id, @Valid @RequestBody UserDTO userDTO) {
     User user = userService.updateById(id, userMapper.fromDTO(userDTO));
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }
 
   @DeleteMapping("/{id}")
-  @PreAuthorize("hasAuthority('USER_DELETE')")
+  @PreAuthorize("hasAuthority('USER_DELETE') || (hasAuthority('USER_DELETE_SELF') && @userPermissionEvaluator.isSameUser(authentication.principal.user, #id))")
   public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
     userService.deleteById(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
