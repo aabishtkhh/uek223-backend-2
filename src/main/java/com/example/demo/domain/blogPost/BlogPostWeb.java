@@ -36,7 +36,7 @@ public class BlogPostWeb {
     /**
      * fetches all blog posts and returns a list of BlogPostDTO
      */
-    @GetMapping(value = "/{pageNum}")
+    @GetMapping(value = "/page/{pageNum}")
     @Operation(summary = "Fetches all Blog Posts", description = "When successful it fetches all posts and returns a JSON-Code with the status code 200.")
     public ResponseEntity<List<BlogPostDTO>> allBlogPosts (@PathVariable(value = "pageNum",required = false) int pageNum) {
         Pageable selectedBlogs = PageRequest.of(pageNum, 5);
