@@ -62,7 +62,7 @@ public class BlogPostWeb {
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("hasAuthority('BLOG_DELETE') || (hasAuthority('BLOG_DELETE_BY_ID') && @userPermissionEvaluator.isSameUser(authentication.principal.user, #id))")
     @Operation(summary = "Deletes the Blog Post", description = "When successful it deletes the blog post with the status code 200.")
-    public void deleteABlogPost(@Valid @PathVariable("id") UUID id) throws EmptyResultDataAccessException {
+    public void deleteABlogPost(@Valid @PathVariable("id") UUID id) {
         service.deleteABlogPost(id);
     }
 }

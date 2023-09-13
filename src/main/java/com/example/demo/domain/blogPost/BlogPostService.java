@@ -39,10 +39,11 @@ public class BlogPostService {
 
     public BlogPost getSingleBlogPost(UUID id) throws EmptyResultDataAccessException {
         log.info("ID: " + id + " blog post");
-        return repository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException()) ;
+        int uuidInInteger = Integer.parseInt(String.valueOf(id));
+        return repository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(uuidInInteger)) ;
     }
 
-    public BlogPost postABlogPost(BlogPost post) throws x {
+    public BlogPost postABlogPost(BlogPost post) {
         log.info("ID: " + post.getId() + " blog post created");
         return repository.save(post);
     }
@@ -53,10 +54,11 @@ public class BlogPostService {
             post.setId(id);
             return repository.save(post);
         }
-        return repository.findById(id).orElseThrow();
+        int uuidInInteger = Integer.parseInt(String.valueOf(id));
+        return repository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(uuidInInteger));
     }
 
-    public void deleteABlogPost(UUID id) throws EmptyResultDataAccessException {
+    public void deleteABlogPost(UUID id) {
         log.info(id + " review deleted");
         repository.deleteById(id);
     }

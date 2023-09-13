@@ -133,21 +133,6 @@ public class CustomGlobalExceptionHandler {
             .setErrors(errors)
             .build();
   }
-
-  // something else
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public ResponseError handlePostDataIncompleteException(MethodArgumentNotValidException ex) {
-    Map<String, String> errors = new HashMap<>();
-    log.warn("Fill everything out");
-    errors.put("postDataIncomplete", "The request data is incomplete or invalid.");
-    return new ResponseError()
-            .setTimeStamp(LocalDate.now())
-            .setErrors(errors)
-            .build();
-  }
-
-  //post
 }
 
 

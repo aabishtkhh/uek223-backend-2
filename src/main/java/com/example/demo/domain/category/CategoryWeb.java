@@ -5,6 +5,7 @@ import com.example.demo.domain.category.dto.CategoryMapper;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,7 +31,7 @@ public class CategoryWeb {
         return ResponseEntity.ok().body(mapper.toDTOs(service.getallCategories()));
     }
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CategoryDTO> singleCategory (@PathVariable ("id") UUID id) {
+    public ResponseEntity<CategoryDTO> singleCategory (@PathVariable ("id") UUID id) throws EmptyResultDataAccessException {
         return ResponseEntity.ok().body(mapper.toDTO(service.getSingleCategory(id)));
     }
 
@@ -42,7 +43,7 @@ public class CategoryWeb {
 
     @PutMapping(value = "/{id}")
     @PreAuthorize("hasAuthority('BLOG_MODIFY')")
-    public ResponseEntity<CategoryDTO> updateCategory (@Valid @PathVariable("id") UUID id, @RequestBody CategoryDTO category) {
+    public ResponseEntity<CategoryDTO> updateCategory (@Valid @PathVariable("id") UUID id, @RequestBody CategoryDTO category) throws EmptyResultDataAccessException {
         return ResponseEntity.status(200).body(mapper.toDTO(service.putACategory(mapper.fromDTO(category), id)));
     }
 
