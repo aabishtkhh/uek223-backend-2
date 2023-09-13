@@ -4,15 +4,9 @@ import jakarta.transaction.Transactional;
 import com.example.demo.core.exception.IdNotFoundResponseError;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.MethodParameter;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,8 +17,8 @@ public class BlogPostService {
     @Autowired
     private BlogPostRepository repository;
 
-    public List<BlogPost> getAllBlogPosts() {
-        List<BlogPost> posts = repository.findAll();
+    public List<BlogPost> getAllBlogPosts(Pageable pageable) {
+        List<BlogPost> posts = repository.findAll(pageable).getContent();
         log.info("All blog posts shown");
         return posts;
     }
@@ -59,11 +53,5 @@ public class BlogPostService {
     public void deleteABlogPost(UUID id) {
         repository.deleteById(id);
         log.info(id + " post deleted");
-    }
-
-    public List<BlogPost> getBlogPostByCategories(UUID blogPostId, Pageable pageable){
-        List<BlogPost> posts = repository.getBlogPostByCategories(blogPostId, pageable);
-        log.info("got all posts by categories");
-        return posts;
     }
 }
