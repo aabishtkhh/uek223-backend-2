@@ -28,8 +28,6 @@ public class CategoryService {
 
     public Category getSingleCategory (UUID id) throws IdNotFoundResponseError{
         log.info("ID: " + id + " category");
-
-        int uuidInInteger = Integer.parseInt(String.valueOf(id));
         return repository.findById(id).orElseThrow(() -> new IdNotFoundResponseError(id.toString()));
     }
 
