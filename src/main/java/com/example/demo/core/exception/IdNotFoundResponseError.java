@@ -6,7 +6,4 @@ public class IdNotFoundResponseError extends Exception{
         super(message);
     }
 
-    public IdNotFoundResponseError(){
-        super();
-    }
 }
