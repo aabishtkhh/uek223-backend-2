@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import com.example.demo.core.exception.IdNotFoundResponseError;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -38,7 +37,6 @@ public class BlogPostService {
 
     @Transactional
     public BlogPost putABlogPost(BlogPost post, UUID id) throws IdNotFoundResponseError {
-        log.info("ID: " + id + " blog post updated");
         if (repository.existsById(id)) {
             post.setId(id);
             return repository.save(post);

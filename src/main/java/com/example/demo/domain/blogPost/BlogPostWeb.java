@@ -1,8 +1,6 @@
 package com.example.demo.domain.blogPost;
 
 import com.example.demo.core.exception.IdNotFoundResponseError;
-import com.example.demo.domain.blogPost.BlogPost;
-import com.example.demo.domain.blogPost.BlogPostService;
 import com.example.demo.domain.blogPost.dto.BlogPostDTO;
 import com.example.demo.domain.blogPost.dto.BlogPostMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,7 +8,6 @@ import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

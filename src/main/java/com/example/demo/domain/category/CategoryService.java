@@ -3,7 +3,6 @@ package com.example.demo.domain.category;
 import com.example.demo.core.exception.IdNotFoundResponseError;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,41 +12,40 @@ import java.util.UUID;
 @Log4j2
 public class CategoryService {
 
-    /**
-     * Need to add:
-     * - Exceptions
-     */
-
     @Autowired
     private CategoryRepository repository;
 
     public List<Category> getallCategories () {
+        List<Category> categories = repository.findAll();
         log.info("All categories shown");
-        return repository.findAll();
+        return categories;
     }
 
     public Category getSingleCategory (UUID id) throws IdNotFoundResponseError{
+        Category category = repository.findById(id).orElseThrow(() -> new IdNotFoundResponseError(id.toString()));
         log.info("ID: " + id + " category");
-        return repository.findById(id).orElseThrow(() -> new IdNotFoundResponseError(id.toString()));
+        return category;
     }
 
     public Category postACategory(Category category) {
+        Category newCategory = repository.save(category);
         log.info("ID: " + category.getId() + " category created");
-        return repository.save(category);
+        return newCategory;
     }
 
     public Category putACategory(Category category, UUID id) throws IdNotFoundResponseError{
-        log.info("ID: " + id + " category updated");
         if (repository.existsById(id)) {
             category.setId(id);
             return repository.save(category);
         }
-        return repository.findById(id).orElseThrow(() -> new IdNotFoundResponseError(id.toString()));
+        Category modifiedCategory = repository.findById(id).orElseThrow(() -> new IdNotFoundResponseError(id.toString()));
+        log.info("ID: " + id + " category updated");
+        return modifiedCategory;
 
     }
 
     public void deleteACategory(UUID id) {
-        log.info(id + " category deleted");
         repository.deleteById(id);
+        log.info(id + " category deleted");
     }
 }
