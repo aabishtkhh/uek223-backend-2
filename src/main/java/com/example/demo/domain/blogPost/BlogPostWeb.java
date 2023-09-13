@@ -29,9 +29,6 @@ import java.util.UUID;
 @CrossOrigin(origins = "http://localhost:3000/")
 public class BlogPostWeb {
 
-    /*
-    - Exceptions
-     */
 
     @Autowired
     private BlogPostService service;

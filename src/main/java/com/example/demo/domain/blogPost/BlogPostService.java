@@ -23,9 +23,8 @@ public class BlogPostService {
         return posts;
     }
 
-    public BlogPost getSingleBlogPost(UUID id) throws EmptyResultDataAccessException {
-        int uuidInInteger = Integer.parseInt(String.valueOf(id));
-        BlogPost onePost = repository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(uuidInInteger));
+    public BlogPost getSingleBlogPost(UUID id) throws IdNotFoundResponseError {
+        BlogPost onePost = repository.findById(id).orElseThrow(() -> new IdNotFoundResponseError(id.toString()));
         log.info("ID: " + id + " blog post");
         return onePost;
     }
