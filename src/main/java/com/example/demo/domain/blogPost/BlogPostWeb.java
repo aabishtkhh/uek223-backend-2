@@ -36,9 +36,9 @@ public class BlogPostWeb {
     /**
      * fetches all blog posts and returns a list of BlogPostDTO
      */
-    @GetMapping(value = "/")
+    @GetMapping(value = "/{pageNum}")
     @Operation(summary = "Fetches all Blog Posts", description = "When successful it fetches all posts and returns a JSON-Code with the status code 200.")
-    public ResponseEntity<List<BlogPostDTO>> allBlogPosts (@RequestParam(value = "pageNum",required = false) int pageNum) {
+    public ResponseEntity<List<BlogPostDTO>> allBlogPosts (@PathVariable(value = "pageNum",required = false) int pageNum) {
         Pageable selectedBlogs = PageRequest.of(pageNum, 5);
         return ResponseEntity.ok().body(mapper.toDTOs(service.getAllBlogPosts(selectedBlogs)));
     }
