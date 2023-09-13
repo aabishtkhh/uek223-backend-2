@@ -1,5 +1,8 @@
 package com.example.demo.domain.blogPost;
 
+import com.example.demo.core.exception.IdNotFoundResponseError;
+import com.example.demo.domain.blogPost.BlogPost;
+import com.example.demo.domain.blogPost.BlogPostService;
 import com.example.demo.domain.blogPost.dto.BlogPostDTO;
 import com.example.demo.domain.blogPost.dto.BlogPostMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -52,7 +55,7 @@ public class BlogPostWeb {
      */
     @GetMapping(value = "/{id}")
     @Operation(summary = "Fetches the desired Blog Post", description = "When successful it fetches the wished blog post and returns the JSON-Code with the status code 200.")
-    public ResponseEntity<BlogPostDTO> singleBlogPost (@PathVariable ("id") UUID id) throws EmptyResultDataAccessException {
+    public ResponseEntity<BlogPostDTO> singleBlogPost (@PathVariable ("id") UUID id) throws IdNotFoundResponseError {
         return ResponseEntity.ok().body(mapper.toDTO(service.getSingleBlogPost(id)));
     }
 
@@ -76,8 +79,8 @@ public class BlogPostWeb {
     @PutMapping(value = "/{id}")
     @PreAuthorize("hasAuthority('BLOG_MODIFY') || (hasAuthority('BLOG_MODIFY_BY_ID') && @userPermissionEvaluator.isSameUser(authentication.principal.user, #id))")
     @Operation(summary = "Updates the wished Blog Post", description = "When successful it updates the blog post with the wished values and returns the JSON-Code of the updated blog post with the status code 200.")
-    public ResponseEntity<BlogPostDTO> updateBlogPost(@Valid @PathVariable("id") UUID id, @RequestBody BlogPostDTO blogPost) throws EmptyResultDataAccessException {
-        return ResponseEntity.ok().body(mapper.toDTO(service.putABlogPost(mapper.fromDTO(blogPost), id)));
+    public ResponseEntity<BlogPostDTO> updateBlogPost(@Valid @PathVariable("id") UUID id, @RequestBody BlogPostDTO blogPost) throws IdNotFoundResponseError {
+        return ResponseEntity.status(200).body(mapper.toDTO(service.putABlogPost(mapper.fromDTO(blogPost), id)));
     }
 
     /**

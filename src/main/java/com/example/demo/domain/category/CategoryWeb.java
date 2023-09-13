@@ -1,5 +1,6 @@
 package com.example.demo.domain.category;
 
+import com.example.demo.core.exception.IdNotFoundResponseError;
 import com.example.demo.domain.category.dto.CategoryDTO;
 import com.example.demo.domain.category.dto.CategoryMapper;
 import jakarta.validation.Valid;
@@ -31,7 +32,7 @@ public class CategoryWeb {
         return ResponseEntity.ok().body(mapper.toDTOs(service.getallCategories()));
     }
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CategoryDTO> singleCategory (@PathVariable ("id") UUID id) throws EmptyResultDataAccessException {
+    public ResponseEntity<CategoryDTO> singleCategory (@PathVariable ("id") UUID id) throws IdNotFoundResponseError {
         return ResponseEntity.ok().body(mapper.toDTO(service.getSingleCategory(id)));
     }
 
@@ -43,7 +44,7 @@ public class CategoryWeb {
 
     @PutMapping(value = "/{id}")
     @PreAuthorize("hasAuthority('BLOG_MODIFY')")
-    public ResponseEntity<CategoryDTO> updateCategory (@Valid @PathVariable("id") UUID id, @RequestBody CategoryDTO category) throws EmptyResultDataAccessException {
+    public ResponseEntity<CategoryDTO> updateCategory (@Valid @PathVariable("id") UUID id, @RequestBody CategoryDTO category) throws IdNotFoundResponseError {
         return ResponseEntity.status(200).body(mapper.toDTO(service.putACategory(mapper.fromDTO(category), id)));
     }
 
