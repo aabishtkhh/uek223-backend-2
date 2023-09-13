@@ -2,8 +2,13 @@ package com.example.demo.domain.blogPost;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.MethodParameter;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -32,17 +37,17 @@ public class BlogPostService {
         }
     }
 
-    public BlogPost getSingleBlogPost(UUID id) {
+    public BlogPost getSingleBlogPost(UUID id) throws EmptyResultDataAccessException {
         log.info("ID: " + id + " blog post");
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException()) ;
     }
 
-    public BlogPost postABlogPost(BlogPost post) {
+    public BlogPost postABlogPost(BlogPost post) throws x {
         log.info("ID: " + post.getId() + " blog post created");
         return repository.save(post);
     }
 
-    public BlogPost putABlogPost(BlogPost post, UUID id) {
+    public BlogPost putABlogPost(BlogPost post, UUID id) throws EmptyResultDataAccessException {
         log.info("ID: " + id + " blog post updated");
         if (repository.existsById(id)) {
             post.setId(id);
@@ -51,7 +56,7 @@ public class BlogPostService {
         return repository.findById(id).orElseThrow();
     }
 
-    public void deleteABlogPost(UUID id) {
+    public void deleteABlogPost(UUID id) throws EmptyResultDataAccessException {
         log.info(id + " review deleted");
         repository.deleteById(id);
     }

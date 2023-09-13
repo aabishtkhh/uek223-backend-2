@@ -2,6 +2,9 @@ package com.example.demo.core.exception;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import lombok.extern.log4j.Log4j2;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.access.AccessDeniedException;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -23,6 +26,7 @@ import org.springframework.web.multipart.MultipartException;
 
 @RestControllerAdvice
 @AllArgsConstructor
+@Log4j2
 public class CustomGlobalExceptionHandler {
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -117,6 +121,33 @@ public class CustomGlobalExceptionHandler {
                               .build();
   }
 
+  // For the Endpoints
+  @ExceptionHandler(EmptyResultDataAccessException.class)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public ResponseError handleIdNotFoundException() {
+    Map<String, String> errors = new HashMap<>();
+    log.error("ID not found");
+    errors.put("idNotFound", "The requested ID was not found.");
+    return new ResponseError()
+            .setTimeStamp(LocalDate.now())
+            .setErrors(errors)
+            .build();
+  }
+
+  // something else
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ResponseError handlePostDataIncompleteException(MethodArgumentNotValidException ex) {
+    Map<String, String> errors = new HashMap<>();
+    log.warn("Fill everything out");
+    errors.put("postDataIncomplete", "The request data is incomplete or invalid.");
+    return new ResponseError()
+            .setTimeStamp(LocalDate.now())
+            .setErrors(errors)
+            .build();
+  }
+
+  //post
 }
 
 
