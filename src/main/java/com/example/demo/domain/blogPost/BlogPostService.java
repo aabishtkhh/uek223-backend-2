@@ -1,5 +1,6 @@
 package com.example.demo.domain.blogPost;
 
+import com.example.demo.core.exception.IdNotFoundResponseError;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -37,10 +38,10 @@ public class BlogPostService {
         }
     }
 
-    public BlogPost getSingleBlogPost(UUID id) throws EmptyResultDataAccessException {
+    public BlogPost getSingleBlogPost(UUID id) throws IdNotFoundResponseError {
         log.info("ID: " + id + " blog post");
-        int uuidInInteger = Integer.parseInt(String.valueOf(id));
-        return repository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(uuidInInteger)) ;
+
+        return repository.findById(id).orElseThrow(() -> new IdNotFoundResponseError(id.toString()));
     }
 
     public BlogPost postABlogPost(BlogPost post) {
@@ -48,14 +49,13 @@ public class BlogPostService {
         return repository.save(post);
     }
 
-    public BlogPost putABlogPost(BlogPost post, UUID id) throws EmptyResultDataAccessException {
+    public BlogPost putABlogPost(BlogPost post, UUID id) throws IdNotFoundResponseError {
         log.info("ID: " + id + " blog post updated");
         if (repository.existsById(id)) {
             post.setId(id);
             return repository.save(post);
         }
-        int uuidInInteger = Integer.parseInt(String.valueOf(id));
-        return repository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(uuidInInteger));
+        return repository.findById(id).orElseThrow(() -> new IdNotFoundResponseError(id.toString()));
     }
 
     public void deleteABlogPost(UUID id) {

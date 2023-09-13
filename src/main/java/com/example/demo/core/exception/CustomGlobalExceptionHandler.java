@@ -122,7 +122,7 @@ public class CustomGlobalExceptionHandler {
   }
 
   // For the Endpoints
-  @ExceptionHandler(EmptyResultDataAccessException.class)
+  @ExceptionHandler(IdNotFoundResponseError.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public ResponseError handleIdNotFoundException() {
     Map<String, String> errors = new HashMap<>();
