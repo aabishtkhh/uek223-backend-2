@@ -5,6 +5,8 @@ import com.example.demo.domain.user.dto.UserMapper;
 import com.example.demo.domain.user.dto.UserRegisterDTO;
 import java.util.List;
 import java.util.UUID;
+
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,6 +60,8 @@ public class UserController {
     User user = userService.registerUser(userMapper.fromDTO(userDTO));
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.CREATED);
   }
+
+  @Transactional
   @PutMapping("/{id}")
   @PreAuthorize("hasAuthority('USER_MODIFY') || (hasAuthority('USER_MODIFY_SELF') && @userPermissionEvaluator.isSameUser(authentication.principal.user, #id))")
   public ResponseEntity<UserDTO> updateById(@PathVariable UUID id, @Valid @RequestBody UserDTO userDTO) {
@@ -65,6 +69,7 @@ public class UserController {
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }
 
+  @Transactional
   @DeleteMapping("/{id}")
   @PreAuthorize("hasAuthority('USER_DELETE') || (hasAuthority('USER_DELETE_SELF') && @userPermissionEvaluator.isSameUser(authentication.principal.user, #id))")
   public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
