@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface BlogPostRepository extends AbstractRepository<BlogPost> {
-    public List<BlogPost> getBlogPostByCategories(UUID uuid, Pageable pageable);
+   // @Query(value = "SELECT * FROM blog_posts", nativeQuery = true)
 
+    public Page<BlogPost> findAll(Pageable pageable);
 
 }

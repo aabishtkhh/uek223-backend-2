@@ -41,8 +41,9 @@ public class BlogPostWeb {
      */
     @GetMapping(value = "/")
     @Operation(summary = "Fetches all Blog Posts", description = "When successful it fetches all posts and returns a JSON-Code with the status code 200.")
-    public ResponseEntity<List<BlogPostDTO>> allBlogPosts () {
-        return ResponseEntity.ok().body(mapper.toDTOs(service.getAllBlogPosts()));
+    public ResponseEntity<List<BlogPostDTO>> allBlogPosts (@RequestParam(value = "pageNum",required = false) int pageNum) {
+        Pageable selectedBlogs = PageRequest.of(pageNum, 5);
+        return ResponseEntity.ok().body(mapper.toDTOs(service.getAllBlogPosts(selectedBlogs)));
     }
 
     /**
@@ -89,11 +90,5 @@ public class BlogPostWeb {
     @Operation(summary = "Deletes the Blog Post", description = "When successful it deletes the blog post with the status code 200.")
     public void deleteABlogPost(@Valid @PathVariable("id") UUID id) {
         service.deleteABlogPost(id);
-    }
-
-    @GetMapping("/{id}/categories/{pageNumber}")
-    public ResponseEntity<List<BlogPostDTO>> retrieveAllBlogPostsByCategories(@PathVariable("id") UUID id, @PathVariable("pageNumber") int pageNumber){
-        Pageable selectedPages = PageRequest.of(pageNumber, 5);
-        return ResponseEntity.ok().body(mapper.toDTOs(service.getBlogPostByCategories(id, selectedPages)));
     }
 }
